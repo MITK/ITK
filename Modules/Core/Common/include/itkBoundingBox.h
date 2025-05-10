@@ -82,7 +82,7 @@ public:
   itkOverrideGetNameOfClassMacro(BoundingBox);
 
   /** Method for creation through the object factory. */
-  itkNewMacro(Self);
+  itkFactorylessNewMacro(Self);
 
   /* Number of corners of this bounding box. Equals `pow(2, VPointDimension)` */
   static constexpr SizeValueType NumberOfCorners = SizeValueType{ 1 } << VPointDimension;

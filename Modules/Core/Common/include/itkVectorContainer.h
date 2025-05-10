@@ -71,7 +71,7 @@ public:
   using STLContainerType = VectorType;
 
   /** Method for creation through the object factory. */
-  itkNewMacro(Self);
+  itkFactorylessNewMacro(Self);
 
   /** \see LightObject::GetNameOfClass() */
   itkOverrideGetNameOfClassMacro(VectorContainer);

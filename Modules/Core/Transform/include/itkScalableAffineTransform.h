@@ -46,7 +46,8 @@ public:
   itkOverrideGetNameOfClassMacro(ScalableAffineTransform);
 
   /** New macro for creation of through a Smart Pointer   */
-  itkNewMacro(Self);
+  itkFactorylessNewMacro(Self);
+  itkCloneMacro(Self);
 
   /** Dimension of the domain space. */
   static constexpr unsigned int InputSpaceDimension = VDimension;
