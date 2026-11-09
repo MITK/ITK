@@ -177,9 +177,12 @@ template <typename TParametersValueType>
 void
 Euler3DTransform<TParametersValueType>::ComputeMatrixParameters()
 {
+  // A rotation matrix may round the sine just past +-1, where asin gives NaN.
+  const ScalarType one = NumericTraits<ScalarType>::OneValue();
+
   if (m_ComputeZYX)
   {
-    m_AngleY = -std::asin(this->GetMatrix()[2][0]);
+    m_AngleY = -std::asin(std::clamp(this->GetMatrix()[2][0], -one, one));
     double C = std::cos(m_AngleY);
     if (itk::Math::abs(C) > 0.00005)
     {
@@ -200,7 +203,7 @@ Euler3DTransform<TParametersValueType>::ComputeMatrixParameters()
   }
   else
   {
-    m_AngleX = std::asin(this->GetMatrix()[2][1]);
+    m_AngleX = std::asin(std::clamp(this->GetMatrix()[2][1], -one, one));
     double A = std::cos(m_AngleX);
     if (itk::Math::abs(A) > 0.00005)
     {
@@ -216,7 +219,7 @@ Euler3DTransform<TParametersValueType>::ComputeMatrixParameters()
     {
       m_AngleZ = ScalarType{};
       double x = this->GetMatrix()[0][0];
-      double y = this->GetMatrix()[1][0];
+      double y = this->GetMatrix()[0][2];
       m_AngleY = std::atan2(y, x);
     }
   }
